@@ -24,4 +24,35 @@ res.status(201).json({
 }
 
 
-export { addTodo };
+const getAllTodo = async(req,res)=>{
+
+    const todos = await Todos.find({})
+res.status(200).json(todos)
+}
+
+const singleTodoWithId = async(req,res) =>{
+const {id} = req.params
+
+
+if (!mongoose.Types.ObjectId.isValid(id)) {
+    return res.status(400).json({
+        message:"Invalid Id"
+    })
+}
+const todo = await Todos.findById(id)
+if (!todo) {
+    res.status(404).json({
+        message:"Todo not found !"
+    })
+    return
+ }
+
+res.status(200).json(todo)
+
+
+
+}
+
+
+
+export { addTodo , getAllTodo ,singleTodoWithId};
