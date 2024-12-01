@@ -3,7 +3,6 @@ import Todos from "../models/todos.models.js"
 import { json } from "express";
 
 
-
 //  Create Todo
 
 const addTodo = (req, res) => {
