@@ -2,6 +2,25 @@
 import mongoose from 'mongoose';
 import Course from '../models/course.model.js'
 import Student from "../models/students.model.js";
+import nodemailer from 'nodemailer'
+
+
+// nodemailer configuration
+
+
+
+const transporter = nodemailer.createTransport({
+  host: "smtp.ethereal.email",
+  port: 587,
+  secure: false, // true for port 465, false for other ports
+  auth: {
+    user: "maddison53@ethereal.email",
+    pass: "jn7jnAPss4f63QBp6D",
+  },
+});
+
+
+
 
 const addStudent = async(req,res) => {
 
@@ -62,8 +81,37 @@ if (!student)return res.json({message:"No student found"})
 
 
 
+const getAllStudent  = async(req,res) => {
+
+const page = req.query.page || 1
+const limit = req.query.limit || 3
+
+const skip =  (page - 1) * limit
+const student = await Student.find({}).skip(skip).limit(limit)
+res.json({data:student})
+
+}
 
 
-export {addStudent , getStudent }
+const sentEmail = async (req, res) => {
+  try {
+    const info = await transporter.sendMail({
+      from: '"Maddison Foo Koch 👻" <maddison53@ethereal.email>',
+      to: "muhammadarsalanforever@gmail.com",
+      subject: "Congratulations for being selected in U19 T20 Cup 2025 ✔",
+      text: "Mubaarak ho aap ko k aap ka name aagaya h U19 Team m",
+      html: "<b>Hello world?</b>",
+    });
+    console.log("Message sent: %s", info.messageId);
+    res.send("email delivered successfully");
+  } catch (error) {
+    console.log("Error sending email:", error);
+    res.status(500).send("Failed to send email");
+  }
+};
+
+
+
+export {addStudent , getStudent ,getAllStudent,sentEmail}
 
 
