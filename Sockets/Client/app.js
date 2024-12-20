@@ -26,6 +26,8 @@ if (!input.value) {
   alert("enter message to sent")
 }
 console.log("message sent successfully ===>" , input.value );
+
+input.value = ''
 })
 let arr = []
 
@@ -37,6 +39,8 @@ let arr = []
 
 window.deletechat= function (index){
   arr.splice(index,1)
+
+
 renderMessage()
 
 
@@ -58,6 +62,10 @@ renderMessage()
 }
 
 
+if (arr.length === 0) {
+  ul.innerHTML = `<h1 class="h1">No Message found</h1>`
+}
+
 
 
 
@@ -72,7 +80,7 @@ const renderMessage = ()=>{
     ul.innerHTML += `
     
     <li id="li">${item}
-    <button onclick="abc(deletechat(${index})" id="delete">Delete chat</button>
+    <button onclick="deletechat(${index})" id="delete">Delete chat</button>
  <button onclick="editChat(${index})" id="edit">Edit chat</button>
     </li>
     `
