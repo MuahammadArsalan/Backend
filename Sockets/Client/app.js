@@ -13,9 +13,10 @@ const ul = document.querySelector('#ul')
 
 const socket = io('http://localhost:3000')
 
+let arr = []
+
 socket.on("connect",()=>{
     console.log("connected");
-
 })
 
 form.addEventListener("submit",(event) => {
@@ -26,23 +27,14 @@ if (!input.value) {
   alert("enter message to sent")
 }
 console.log("message sent successfully ===>" , input.value );
-
 input.value = ''
 })
-let arr = []
-
-
-
-
 
 //delet chat 
 
 window.deletechat= function (index){
   arr.splice(index,1)
-
-
 renderMessage()
-
 
 }
 
@@ -61,15 +53,9 @@ renderMessage()
 
 }
 
-
 if (arr.length === 0) {
   ul.innerHTML = `<h1 class="h1">No Message found</h1>`
 }
-
-
-
-
-
 
 //render on screen funtion
 
@@ -85,14 +71,8 @@ const renderMessage = ()=>{
     </li>
     `
     
-      })
-      
-      
-      
+      }) 
     }
-    
-    
-
 
 socket.on("message",(msg)=>{
    
@@ -101,6 +81,15 @@ console.log(msg);
   console.log(arr);
 renderMessage()
 })
+
+
+
+
+
+
+
+
+
 
 
 

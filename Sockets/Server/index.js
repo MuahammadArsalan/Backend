@@ -1,4 +1,3 @@
-import { log } from 'console';
 import express from 'express'
 
 const app = express();
@@ -15,9 +14,6 @@ const io = new Server(server,{
     }
 })
 
-
-
-
 io.on("connection", (socket) => {
      console.log("User Connected" , socket.id);
 
@@ -33,7 +29,6 @@ socket.on("message",(message)=>{
       
     })
 })
-
 
 app.get('/', (req, res) => {
     res.send('<h1>Hello world</h1>');
